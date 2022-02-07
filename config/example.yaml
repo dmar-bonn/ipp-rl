@@ -1,0 +1,145 @@
+environment:
+  x_dim: 10 # [cells]
+  y_dim: 10 # [cells]
+  resolution: 4 # [m/cell]
+
+sensor:
+  type: "rgb_camera"
+  field_of_view:
+    angle_x: 60 # [degrees °]
+    angle_y: 60 # [degrees °]
+  encoding: "rgb8"
+  model:
+    type: "altitude_dependent"
+    coeff_a: 0.05
+    coeff_b: 0.2
+  simulation:
+    type: "gaussian_random_field"
+    cluster_radius: 5
+
+mapping:
+  fit_gaussian_process: true
+  prior_cov_mean: 0.5
+  prior_cov_std: 0.25
+  signal_variance: 1.82
+  length_scale: 3.67
+  noise_variance: 1.42
+  nu: 1.5
+
+experiment:
+  title: "test_experiment"
+  constraints:
+    dist_to_boundaries: 3
+    min_altitude: 8
+    max_altitude: 14
+    altitude_spacing: 6
+    budget: 200
+  scenario:
+    adaptive: true
+    value_threshold: 0.4
+    interval_factor: 0
+  uav:
+    max_v: 2 # [m/s]
+    max_a: 2 # [m/s^2]
+    sampling_time: 2 # [s]
+  missions:
+    - type: "mcts_zero"
+      color: "green"
+      episode_horizon: 5
+      model_deployment_filename: "trained_model.pth.tar"
+      train_examples_iter: 6
+      restart_training: false
+      telegram_notifications: true
+      config_name: "standard"
+      hyper_params:
+        gamma: 1
+        puct_init: 15
+        puct_init_decay: 0.8
+        puct_init_min: 4
+        puct_base: 10000
+        forced_playout_factor: 2
+        num_mcts_simulations: 100
+        max_valid_action_distance: 11.5
+        temperature_threshold: 40
+        max_episode_steps: 40
+        temperature_scale: 1.0
+        num_self_play_iterations: 40
+        num_episodes: 13
+        start_train_examples_history: 1
+        train_examples_history_step: 2
+        max_train_examples_history: 10
+        num_arena_games: 40
+        network_update_threshold: 0.52
+        learning_rate: 0.0005
+        max_learning_rate: 0.005
+        weight_decay: 0.00003
+        momentum: 0.9
+        num_epochs: 3
+        batch_size: 96
+        num_augmented_samples: 0
+        input_channels: 16
+        use_fov_input: false
+        use_action_costs_input: true
+        input_history_length: 3
+        num_channels: 128
+        num_encoder_res_blocks: 10
+        num_policy_head_conv_bn_blocks: 3
+        num_value_head_conv_bn_blocks: 3
+        shared_network: true
+        dropout: 0.0
+        max_grad_norm: 10.0
+        lr_step_size: 10000
+        lr_decay: 0.9
+        policy_loss_coeff: 1
+        value_loss_coeff: 1
+        reward_loss_coeff: 1
+        reconstruction_loss_coeff: 1
+        entropy_regularization_coeff: 0
+        dirichlet_alpha: 1.0
+        dirichlet_alpha_decay: 0.8
+        dirichlet_alpha_min: 0.3
+        dirichlet_eps: 0.25
+        continuous_network_update: true
+        reset_mcts_each_step: true
+        shuffle_train_env_intervals: 1
+        shuffle_budget: false
+        shuffle_prior_cov: true
+        num_workers: 22
+        max_inference_batch_size: 16
+        max_waiting_time: 10
+        non_blocking_read: false
+        use_autoencoder: false
+        use_reward_target: false
+        replay_alpha: 0.75
+        replay_beta0: 0.4
+        use_per: false
+        mask_policy_head: true
+        use_silu: true
+        use_separable_conv_layers: true
+        log_network_parameters: false
+        use_global_context_mixing: true
+        num_global_pooling_channels: 32
+    - type: "greedy"
+      color: "blue"
+      config_name: "standard"
+      num_waypoints: 100
+    - type: "random_discrete"
+      color: "red"
+      config_name: "standard"
+    - type: "lawnmower"
+      color: "orange"
+      step_size: 5
+      num_waypoints: 100
+      config_name: "standard"
+  evaluation:
+    repetitions: 5
+    use_effective_mission_time: true
+    metrics:
+      - "num_waypoints"
+      - "paths"
+      - "uncertainty"
+      - "rmse"
+      - "wrmse"
+      - "mll"
+      - "wmll"
+      - "run_time"

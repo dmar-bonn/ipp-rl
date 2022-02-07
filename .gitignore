@@ -1,0 +1,16 @@
+logs/
+.env
+
+.idea/
+__pycache__/
+
+build/
+devel/
+.catkin_tools/
+src/
+
+outcmaes/
+generated_train_data/
+core
+
+datasets/

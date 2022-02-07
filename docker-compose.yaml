@@ -1,0 +1,127 @@
+version: "3"
+
+services:
+    ros_master:
+        image: ros:noetic-ros-core
+        networks:
+            - mapping_ipp_framework_network
+        restart: always
+        container_name: mapping_ipp_framework_ros_master
+        command: stdbuf -o L roscore
+
+    mapping_ipp:
+        image: mapping_ipp_framework_mapping_ipp:latest
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on:
+            - ros_master
+        networks:
+            - mapping_ipp_framework_network
+        volumes:
+            - ${REPO_DIR}:/mapping_ipp_framework
+            - /tmp/.X11-unix:/tmp/.X11-unix:rw
+        environment:
+            - ROS_MASTER_URI=http://ros_master:11311
+            - REPO_DIR=${REPO_DIR}
+            - CONFIG_FILE_PATH=${CONFIG_FILE_PATH}
+            - LOG_DIR=${LOG_DIR}
+            - DISPLAY=unix${DISPLAY}
+            - QT_X11_NO_MITSHM=1
+            - NVIDIA_VISIBLE_DEVICES=all
+            - KMP_INIT_AT_FORK=FALSE
+            # - MKL_THREADING_LAYER=TBB
+            - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+            - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+            - EXPERIMENT_FILE_PATH=${EXPERIMENT_FILE_PATH}
+            - CHECKPOINTS_DIR=${CHECKPOINTS_DIR}
+            - TRAIN_DATA_DIR=${TRAIN_DATA_DIR}
+            - DATASETS_DIR=${DATASETS_DIR}
+        ports:
+            - "6006:6006"
+        container_name: mapping_ipp_framework_mapping_ipp
+        runtime: nvidia
+        command: "sleep 168h"
+    rotors_simulation:
+        image: mapping_ipp_framework_mapping_ipp:latest
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on:
+            - ros_master
+        networks:
+            - mapping_ipp_framework_network
+        volumes:
+            - ${REPO_DIR}:/mapping_ipp_framework
+            - /tmp/.X11-unix:/tmp/.X11-unix:rw
+        environment:
+            - ROS_MASTER_URI=http://ros_master:11311
+            - REPO_DIR=${REPO_DIR}
+            - CONFIG_FILE_PATH=${CONFIG_FILE_PATH}
+            - LOG_DIR=${LOG_DIR}
+            - DISPLAY=unix${DISPLAY}
+            - QT_X11_NO_MITSHM=1
+        container_name: mapping_ipp_framework_rotors_simulation
+        command: "sleep 168h"
+    mav_ipp_planning:
+        image: mapping_ipp_framework_mapping_ipp:latest
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on:
+            - ros_master
+        networks:
+            - mapping_ipp_framework_network
+        volumes:
+            - ${REPO_DIR}:/mapping_ipp_framework
+            - ${REPO_DIR}/planning:/mapping_ipp_framework/src/planning
+            - /tmp/.X11-unix:/tmp/.X11-unix:rw
+        environment:
+            - ROS_MASTER_URI=http://ros_master:11311
+            - REPO_DIR=${REPO_DIR}
+            - CONFIG_FILE_PATH=${CONFIG_FILE_PATH}
+            - LOG_DIR=${LOG_DIR}
+            - DISPLAY=unix${DISPLAY}
+            - QT_X11_NO_MITSHM=1
+        container_name: mapping_ipp_framework_mav_ipp_planning
+        command: "sleep 168h"
+    mav_local_planning:
+        image: mapping_ipp_framework_mapping_ipp:latest
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on:
+            - ros_master
+        networks:
+            - mapping_ipp_framework_network
+        volumes:
+            - ${REPO_DIR}:/mapping_ipp_framework
+        environment:
+            - ROS_MASTER_URI=http://ros_master:11311
+            - REPO_DIR=${REPO_DIR}
+            - CONFIG_FILE_PATH=${CONFIG_FILE_PATH}
+            - LOG_DIR=${LOG_DIR}
+        container_name: mapping_ipp_framework_mav_local_planning
+        command: "sleep 168h"
+    mav_control:
+        image: mapping_ipp_framework_mapping_ipp:latest
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on:
+            -   ros_master
+        networks:
+            - mapping_ipp_framework_network
+        volumes:
+            - ${REPO_DIR}:/mapping_ipp_framework
+        environment:
+            - ROS_MASTER_URI=http://ros_master:11311
+            - REPO_DIR=${REPO_DIR}
+            - CONFIG_FILE_PATH=${CONFIG_FILE_PATH}
+            - LOG_DIR=${LOG_DIR}
+        container_name: mapping_ipp_framework_mav_control
+        command: bash -c "source /mapping_ipp_framework/devel/setup.bash && roslaunch mav_linear_mpc mav_linear_mpc_sim.launch mav_name:=firefly"
+
+networks:
+    mapping_ipp_framework_network:
+        driver: bridge

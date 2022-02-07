@@ -1,0 +1,9 @@
+<launch>
+    <arg name="mav_name" default="firefly"/>
+
+    <group ns="$(arg mav_name)">
+        <!--- Informative path planner -->
+        <node name="ipp_mission" pkg="ipp_planning" type="ipp_mission_node.py" output="screen">
+        </node>
+    </group>
+</launch>

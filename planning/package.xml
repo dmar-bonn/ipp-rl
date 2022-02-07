@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>ipp_planning</name>
+    <version>0.0.0</version>
+    <description>Informative Path Planning</description>
+
+    <author email="jrueckin@uni-bonn.de">Julius Rueckin</author>
+    <maintainer email="jrueckin@uni-bonn.de">Julius Rueckin</maintainer>
+    <license>TODO</license>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    <buildtool_depend>catkin_simple</buildtool_depend>
+
+    <depend>rospy</depend>
+    <depend>eigen_catkin</depend>
+    <depend>mav_trajectory_generation_ros</depend>
+    <depend>mav_planning_msgs</depend>
+    <depend>eigen_checks</depend>
+    <depend>geometry_msgs</depend>
+    <depend>std_msgs</depend>
+</package>

@@ -1,0 +1,13 @@
+scikit-learn==0.24.1
+Cython==0.29.23
+cma==3.0.3
+torch==1.8.1
+tqdm==4.60.0
+tensorboard==2.5.0
+matplotlib==3.1.3
+opencv-python==4.5.2.54
+python-telegram-bot==13.7
+joblib==1.0.1
+seaborn==0.11.2
+bz2file==0.98
+imageio==2.9.0
