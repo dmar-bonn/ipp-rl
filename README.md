@@ -1,24 +1,20 @@
 # Adaptive Informative Path Planning Using Deep Reinforcement Learning for UAV-based Active Sensing
 
-Aerial robots are increasingly being utilized for a
-wide range of environmental monitoring and exploration tasks.
-However, a key challenge is efficiently planning paths to maximize
-the information value of acquired data as an initially unknown
+Aerial robots are increasingly being utilized for
+environmental monitoring and exploration. However, a key
+challenge is efficiently planning paths to maximize the information value of acquired data as an initially unknown
 environment is explored. To address this, we propose a new
-approach for informative path planning (IPP) based on deep
-reinforcement learning (RL). Bridging the gap between recent
-advances in RL and robotic applications, our method combines
-Monte Carlo tree search (MCTS) with an offline-learned neural
-network predicting informative sensing actions. We introduce
-several components making our approach applicable for robotic
-tasks with continuous high-dimensional state spaces and large
-action spaces. By deploying the trained network during a mission,
-our method enables sample-efficient online replanning on physi-
-cal platforms with limited computational resources. Evaluations
-using synthetic data show that our approach performs on
-par with existing information-gathering methods while reducing
-runtime by a factor of 8-10, and we validate its performance
-using real-world surface temperature data from a crop field.
+approach for informative path planning based on deep reinforcement learning (RL). Combining recent advances in RL and
+robotic applications, our method combines tree search with an
+offline-learned neural network predicting informative sensing
+actions. We introduce several components making our approach
+applicable for robotic tasks with high-dimensional state and
+large action spaces. By deploying the trained network during a
+mission, our method enables sample-efficient online replanning
+on platforms with limited computational resources. Simulations
+show that our approach performs on par with existing methods
+while reducing runtime by 8−10×. We validate its performance
+using real-world surface temperature data.
 
 The paper can be found [here](https://arxiv.org/pdf/2109.13570.pdf). If you found this work useful for your own research, feel free to cite it.
 ```commandline
