@@ -36,25 +36,25 @@ class IPPMashaMission(Mission):
         use_effective_mission_time: bool = False,
     ):
         """
-            Defines a mission greedily optimizing measurement positions offline.
+        Defines a mission greedily optimizing measurement positions offline.
 
-            Args:
-                mapping (Mapping): mapping algorithm with related sensor and grid map specification
-                uav_specifications (dict): uav parameters defining max_v, max_a, sampling_time
-                dist_to_boundaries (float): minimal distance [m] of a waypoint to map boundaries
-                min_altitude (float): lowest altitude level [m] of waypoints above ground
-                max_altitude (float): highest altitude level [m] of waypoints above ground
-                episode_horizon (int): total number of greedily sampled waypoints
-                altitude_spacing (float): spacing [m] between consecutive altitude levels
-                budget (float): total distance budget for mission
-                cmaes_sigma0 (list): initial standard deviation for CMA-ES in x, y, and z coordinates
-                cmaes_max_iter (int): maximal number of generations until CMA-ES termination
-                cmaes_population_size (int): number of offsprings sampled in each CMA-ES iteration
-                adaptive (bool): indicates if mission should be executed as adaptive or non-adaptive IPP
-                value_threshold (float): grid cells with upper CI bounds above this threshold are of interest
-                interval_factor (float): defines the width of the CI used to decide if a grid cell is of interest
-                config_name (str): descriptive name of chosen mission's hyper-parameter configuration
-                use_effective_mission_time (bool): if true, decrease remaining budget additionally by thinking time
+        Args:
+            mapping (Mapping): mapping algorithm with related sensor and grid map specification
+            uav_specifications (dict): uav parameters defining max_v, max_a, sampling_time
+            dist_to_boundaries (float): minimal distance [m] of a waypoint to map boundaries
+            min_altitude (float): lowest altitude level [m] of waypoints above ground
+            max_altitude (float): highest altitude level [m] of waypoints above ground
+            episode_horizon (int): total number of greedily sampled waypoints
+            altitude_spacing (float): spacing [m] between consecutive altitude levels
+            budget (float): total distance budget for mission
+            cmaes_sigma0 (list): initial standard deviation for CMA-ES in x, y, and z coordinates
+            cmaes_max_iter (int): maximal number of generations until CMA-ES termination
+            cmaes_population_size (int): number of offsprings sampled in each CMA-ES iteration
+            adaptive (bool): indicates if mission should be executed as adaptive or non-adaptive IPP
+            value_threshold (float): grid cells with upper CI bounds above this threshold are of interest
+            interval_factor (float): defines the width of the CI used to decide if a grid cell is of interest
+            config_name (str): descriptive name of chosen mission's hyper-parameter configuration
+            use_effective_mission_time (bool): if true, decrease remaining budget additionally by thinking time
         """
         super().__init__(
             mapping,

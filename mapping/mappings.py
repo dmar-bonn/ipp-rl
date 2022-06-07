@@ -136,7 +136,12 @@ class Mapping:
             current_cov_matrix = self.grid_map.cov_matrix
 
         x, P = self.kalman_filter_update(
-            current_cov_matrix, H, R, grid_mean=self.grid_map.mean, observation=measurement_data, cov_only=cov_only,
+            current_cov_matrix,
+            H,
+            R,
+            grid_mean=self.grid_map.mean,
+            observation=measurement_data,
+            cov_only=cov_only,
         )
         if predict_only:
             if cov_only:

@@ -102,31 +102,31 @@ class MCTSMission(Mission):
         use_effective_mission_time: bool = False,
     ):
         """
-            Defines a mission optimizing measurement positions offline by Monte Carlo tree search with random rollout
-            and expansion policy.
+        Defines a mission optimizing measurement positions offline by Monte Carlo tree search with random rollout
+        and expansion policy.
 
-            Args:
-                mapping (Mapping): mapping algorithm with related sensor and grid map specification
-                uav_specifications (dict): uav parameters defining max_v, max_a, sampling_time
-                dist_to_boundaries (float): minimal distance [m] of a waypoint to map boundaries
-                min_altitude (float): lowest altitude level [m] of waypoints above ground
-                max_altitude (float): highest altitude level [m] of waypoints above ground
-                altitude_spacing (float): spacing [m] between consecutive altitude levels
-                budget (float): total distance budget for mission
-                num_simulations (int): number of performed MCTS simulations
-                gamma (float): future reward discount factor
-                episode_horizon (int): max planning horizon, i.e. max tree search depth
-                k (float): multiplicative factor of progressive widening applied to action space
-                alpha (float): exponent of progressive widening applied to action space
-                epsilon_expand (float): probability of choosing a random expansion action instead of the greedy one
-                epsilon_rollout (float): probability of choosing a random rollout action instead of the greedy one
-                max_greedy_radius (int): max. Manhattan distance of next greedily expanded cell from current cell
-                use_gcb_rollout (bool): if true, perform generalized cost-benefit rollout policy
-                adaptive (bool): indicates if mission should be executed as adaptive or non-adaptive IPP
-                value_threshold (float): grid cells with upper CI bounds above this threshold are of interest
-                interval_factor (float): defines the width of the CI used to decide if a grid cell is of interest
-                config_name (str): descriptive name of chosen mission's hyper-parameter configuration
-                use_effective_mission_time (bool): if true, decrease remaining budget additionally by thinking time
+        Args:
+            mapping (Mapping): mapping algorithm with related sensor and grid map specification
+            uav_specifications (dict): uav parameters defining max_v, max_a, sampling_time
+            dist_to_boundaries (float): minimal distance [m] of a waypoint to map boundaries
+            min_altitude (float): lowest altitude level [m] of waypoints above ground
+            max_altitude (float): highest altitude level [m] of waypoints above ground
+            altitude_spacing (float): spacing [m] between consecutive altitude levels
+            budget (float): total distance budget for mission
+            num_simulations (int): number of performed MCTS simulations
+            gamma (float): future reward discount factor
+            episode_horizon (int): max planning horizon, i.e. max tree search depth
+            k (float): multiplicative factor of progressive widening applied to action space
+            alpha (float): exponent of progressive widening applied to action space
+            epsilon_expand (float): probability of choosing a random expansion action instead of the greedy one
+            epsilon_rollout (float): probability of choosing a random rollout action instead of the greedy one
+            max_greedy_radius (int): max. Manhattan distance of next greedily expanded cell from current cell
+            use_gcb_rollout (bool): if true, perform generalized cost-benefit rollout policy
+            adaptive (bool): indicates if mission should be executed as adaptive or non-adaptive IPP
+            value_threshold (float): grid cells with upper CI bounds above this threshold are of interest
+            interval_factor (float): defines the width of the CI used to decide if a grid cell is of interest
+            config_name (str): descriptive name of chosen mission's hyper-parameter configuration
+            use_effective_mission_time (bool): if true, decrease remaining budget additionally by thinking time
         """
         super().__init__(
             mapping,

@@ -42,7 +42,15 @@ def run_deploy_time_mcts_worker(
     planning_step: int,
 ):
     np.random.seed(42 * planning_step + mcts.worker_id)
-    policy, _ = mcts.get_policy(root, 0, previous_action, budget, episode_history, temperature=1, deploy_time=True,)
+    policy, _ = mcts.get_policy(
+        root,
+        0,
+        previous_action,
+        budget,
+        episode_history,
+        temperature=1,
+        deploy_time=True,
+    )
 
     return policy
 
@@ -106,27 +114,27 @@ class MCTSZeroMission(Mission):
         use_effective_mission_time: bool = False,
     ):
         """
-            Defines a mission greedily optimizing measurement positions offline.
+        Defines a mission greedily optimizing measurement positions offline.
 
-            Args:
-                mapping (Mapping): mapping algorithm with related sensor and grid map specification
-                uav_specifications (dict): uav parameters defining max_v, max_a, sampling_time
-                dist_to_boundaries (float): minimal distance [m] of a waypoint to map boundaries
-                min_altitude (float): lowest altitude level [m] of waypoints above ground
-                max_altitude (float): highest altitude level [m] of waypoints above ground
-                episode_horizon (int): total number of greedily sampled waypoints
-                altitude_spacing (float): spacing [m] between consecutive altitude levels
-                budget (float): total distance budget for mission
-                hyper_params (dict): includes all hyper-parameters for self-play MCTS learning algorithm
-                model_deployment_filename (str): filename of trained and saved policy-value network
-                train_examples_iter (int): iteration number of already produced train data by self-play
-                restart_training (bool): if true, load pretrained model before continuing training
-                adaptive (bool): indicates if mission should be executed as adaptive or non-adaptive IPP
-                value_threshold (float): grid cells with upper CI bounds above this threshold are of interest
-                interval_factor (float): defines the width of the CI used to decide if a grid cell is of interest
-                telegram_notifications (bool): telegram start, progress, and failure notifications are sent
-                config_name (str): descriptive name of chosen mission's hyper-parameter configuration
-                use_effective_mission_time (bool): if true, decrease remaining budget additionally by thinking time
+        Args:
+            mapping (Mapping): mapping algorithm with related sensor and grid map specification
+            uav_specifications (dict): uav parameters defining max_v, max_a, sampling_time
+            dist_to_boundaries (float): minimal distance [m] of a waypoint to map boundaries
+            min_altitude (float): lowest altitude level [m] of waypoints above ground
+            max_altitude (float): highest altitude level [m] of waypoints above ground
+            episode_horizon (int): total number of greedily sampled waypoints
+            altitude_spacing (float): spacing [m] between consecutive altitude levels
+            budget (float): total distance budget for mission
+            hyper_params (dict): includes all hyper-parameters for self-play MCTS learning algorithm
+            model_deployment_filename (str): filename of trained and saved policy-value network
+            train_examples_iter (int): iteration number of already produced train data by self-play
+            restart_training (bool): if true, load pretrained model before continuing training
+            adaptive (bool): indicates if mission should be executed as adaptive or non-adaptive IPP
+            value_threshold (float): grid cells with upper CI bounds above this threshold are of interest
+            interval_factor (float): defines the width of the CI used to decide if a grid cell is of interest
+            telegram_notifications (bool): telegram start, progress, and failure notifications are sent
+            config_name (str): descriptive name of chosen mission's hyper-parameter configuration
+            use_effective_mission_time (bool): if true, decrease remaining budget additionally by thinking time
         """
         super().__init__(
             mapping,
@@ -184,7 +192,11 @@ class MCTSZeroMission(Mission):
         self.mcts = None
         self.telegram_notifications = telegram_notifications
         self.telegram_notifier = TelegramNotifier(
-            self.mission_label, TELEGRAM_TOKEN, TELEGRAM_CHAT_ID, hyper_params=self.hyper_params, verbose=True,
+            self.mission_label,
+            TELEGRAM_TOKEN,
+            TELEGRAM_CHAT_ID,
+            hyper_params=self.hyper_params,
+            verbose=True,
         )
 
     def get_meta_data(self) -> Dict:
@@ -565,7 +577,12 @@ class MCTSZeroMission(Mission):
             for i in range(self.hyper_params["num_workers"]):
                 reply_queues[i] = manager.Queue()
                 mcts_instances[i] = MCTS(
-                    self.mapping, self.hyper_params, self.meta_data, request_queue, reply_queues[i], worker_id=i,
+                    self.mapping,
+                    self.hyper_params,
+                    self.meta_data,
+                    request_queue,
+                    reply_queues[i],
+                    worker_id=i,
                 )
 
             inference_process = torch.multiprocessing.spawn(

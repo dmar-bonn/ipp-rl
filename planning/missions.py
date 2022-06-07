@@ -35,20 +35,20 @@ class Mission:
         use_effective_mission_time: bool = False,
     ):
         """
-            Defines the common interface each planning mission shares.
+        Defines the common interface each planning mission shares.
 
-            Args:
-                mapping (Mapping): mapping algorithm with related sensor and grid map specification
-                uav_specifications (dict): uav parameters defining max_v, max_a, sampling_time
-                dist_to_boundaries (float): minimal distance [m] of a waypoint to map boundaries
-                min_altitude (float): lowest altitude level [m] of waypoints above ground
-                max_altitude (float): highest altitude level [m] of waypoints above ground
-                budget (float): total distance budget for mission
-                adaptive (bool): indicates if mission should be executed as adaptive or non-adaptive IPP
-                value_threshold (float): grid cells with upper CI bounds above this threshold are of interest
-                interval_factor (float): defines the width of the CI used to decide if a grid cell is of interest
-                config_name (str): descriptive name of chosen mission's hyper-parameter configuration
-                use_effective_mission_time (bool): if true, decrease remaining budget additionally by thinking time
+        Args:
+            mapping (Mapping): mapping algorithm with related sensor and grid map specification
+            uav_specifications (dict): uav parameters defining max_v, max_a, sampling_time
+            dist_to_boundaries (float): minimal distance [m] of a waypoint to map boundaries
+            min_altitude (float): lowest altitude level [m] of waypoints above ground
+            max_altitude (float): highest altitude level [m] of waypoints above ground
+            budget (float): total distance budget for mission
+            adaptive (bool): indicates if mission should be executed as adaptive or non-adaptive IPP
+            value_threshold (float): grid cells with upper CI bounds above this threshold are of interest
+            interval_factor (float): defines the width of the CI used to decide if a grid cell is of interest
+            config_name (str): descriptive name of chosen mission's hyper-parameter configuration
+            use_effective_mission_time (bool): if true, decrease remaining budget additionally by thinking time
         """
         super(Mission, self).__init__()
 

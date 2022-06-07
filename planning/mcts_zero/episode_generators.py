@@ -119,7 +119,12 @@ class EpisodeGenerator:
                 depth < self.hyper_params["temperature_threshold"]
             )
             policy, valid_actions_msk = self.mcts.get_policy(
-                node, 0, previous_action, remaining_budget, episode_history, temperature=temperature,
+                node,
+                0,
+                previous_action,
+                remaining_budget,
+                episode_history,
+                temperature=temperature,
             )
 
             if policy is None:
@@ -130,7 +135,12 @@ class EpisodeGenerator:
             action_idx = np.random.choice(len(policy), p=policy)
             action = self.actions_np[action_idx, :]
             reward, _, next_state = simulate_prediction_step(
-                node.state, previous_action, action, self.mapping, self.uav_specifications, self.get_adaptive_info(),
+                node.state,
+                previous_action,
+                action,
+                self.mapping,
+                self.uav_specifications,
+                self.get_adaptive_info(),
             )
             simulated_raw_measurement = self.mapping.sensor.take_measurement(action, verbose=False)
             self.mapping.update_grid_map(action, simulated_raw_measurement)

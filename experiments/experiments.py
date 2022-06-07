@@ -192,7 +192,12 @@ class Experiment:
                 mission.execute()
 
     def plot_performance_metric(
-        self, metric: str, title: str, y_label: str, save_path: str = None, use_effective_mission_time: bool = False,
+        self,
+        metric: str,
+        title: str,
+        y_label: str,
+        save_path: str = None,
+        use_effective_mission_time: bool = False,
     ):
         total_performance_metrics_df = pd.DataFrame({"method": [], "flight_time": [], "metric": []})
         for mission_type in self.missions.keys():

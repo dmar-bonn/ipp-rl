@@ -86,7 +86,11 @@ class Camera(Sensor):
 
 class RGBCamera(Camera):
     def __init__(
-        self, field_of_view: Dict, sensor_model: SensorModel, grid_map: GridMap, encoding: str = "rgb8",
+        self,
+        field_of_view: Dict,
+        sensor_model: SensorModel,
+        grid_map: GridMap,
+        encoding: str = "rgb8",
     ):
         """
         RGB camera class with specialized measurement functions for this type of cameras.

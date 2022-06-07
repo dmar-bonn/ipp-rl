@@ -179,7 +179,8 @@ class Encoder(nn.Module):
         self.use_separable_conv_layers = use_separable_conv_layers
 
         self.down_sample_block = nn.Sequential(
-            conv_bn(input_channels, num_channels, kernel_size=7, stride=2, padding=3), nonlinearity,
+            conv_bn(input_channels, num_channels, kernel_size=7, stride=2, padding=3),
+            nonlinearity,
         )
 
         self.residual_block_s1 = ResidualBlock(num_channels, dropout, 1, nonlinearity, use_1x1conv=True)
@@ -189,7 +190,12 @@ class Encoder(nn.Module):
             num_channels, dropout, 1, nonlinearity, use_1x1conv=True, down_sample=False
         )
         self.separable_residual_block_s2 = NonBottleneck1d(
-            num_channels, dropout, 1, nonlinearity, use_1x1conv=True, down_sample=True,
+            num_channels,
+            dropout,
+            1,
+            nonlinearity,
+            use_1x1conv=True,
+            down_sample=True,
         )
 
         self.use_global_context_mixing = use_global_context_mixing
@@ -265,7 +271,8 @@ class ValueHead(nn.Module):
         self.dropout = nn.Dropout2d(dropout)
         self.global_pooling_layer = GlobalPooling()
         self.conv_bn_block = nn.Sequential(
-            conv_bn(num_channels, num_channels, kernel_size=3, stride=1, padding=1), nonlinearity,
+            conv_bn(num_channels, num_channels, kernel_size=3, stride=1, padding=1),
+            nonlinearity,
         )
         self.use_global_context_mixing = use_global_context_mixing
         self.mix_global_context = MixGlobalContext(num_channels, nonlinearity, dropout, num_global_pooling_channels)
@@ -311,7 +318,8 @@ class PolicyHead(nn.Module):
         self.dropout = nn.Dropout2d(dropout)
         self.global_pooling_layer = GlobalPooling()
         self.conv_bn_block = nn.Sequential(
-            conv_bn(num_channels, num_channels, kernel_size=3, stride=1, padding=1), nonlinearity,
+            conv_bn(num_channels, num_channels, kernel_size=3, stride=1, padding=1),
+            nonlinearity,
         )
 
         self.use_global_context_mixing = use_global_context_mixing

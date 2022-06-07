@@ -78,7 +78,8 @@ class RandomContinuousMission(Mission):
         remaining_budget = self.budget
         while remaining_budget >= 0:
             waypoint = np.random.uniform(
-                low=(min_y_pos, min_x_pos, self.min_altitude), high=(max_y_pos, max_x_pos, self.max_altitude),
+                low=(min_y_pos, min_x_pos, self.min_altitude),
+                high=(max_y_pos, max_x_pos, self.max_altitude),
             )
 
             trials = 100
@@ -87,7 +88,8 @@ class RandomContinuousMission(Mission):
             ):
                 trials -= 1
                 waypoint = np.random.uniform(
-                    low=(min_y_pos, min_x_pos, self.min_altitude), high=(max_y_pos, max_x_pos, self.max_altitude),
+                    low=(min_y_pos, min_x_pos, self.min_altitude),
+                    high=(max_y_pos, max_x_pos, self.max_altitude),
                 )
 
             remaining_budget -= action_costs(waypoint, previous_waypoint, self.uav_specifications)
