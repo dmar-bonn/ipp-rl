@@ -18,12 +18,15 @@ using real-world surface temperature data.
 
 The paper can be found [here](https://arxiv.org/pdf/2109.13570.pdf). If you found this work useful for your own research, feel free to cite it.
 ```commandline
-@inproceedings{ruckin2022adaptive,
-  title={Adaptive Informative Path Planning Using Deep Reinforcement Learning for UAV-based Active Sensing},
-  author={R{\"u}ckin, Julius and Jin, Liren and Popovi{\'c}, Marija},
-  booktitle={2022 IEEE international conference on robotics and automation (ICRA)},
+@INPROCEEDINGS{9812025,
+  author={R&#x00FC;ckin, Julius and Jin, Liren and Popovi&#x0107;, Marija},
+  booktitle={2022 International Conference on Robotics and Automation (ICRA)}, 
+  title={Adaptive Informative Path Planning Using Deep Reinforcement Learning for UAV-based Active Sensing}, 
   year={2022},
-  organization={IEEE}
+  volume={},
+  number={},
+  pages={4473-4479},
+  doi={10.1109/ICRA46639.2022.9812025}
 }
 ```
 
